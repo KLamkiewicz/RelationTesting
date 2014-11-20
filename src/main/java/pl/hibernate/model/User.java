@@ -1,9 +1,8 @@
 package pl.hibernate.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -12,6 +11,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    //Przypadek 1
+    //@ManyToMany
+    //Przypadek 2
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "booksWant",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "bookId")
+    )
+    private List<Book> booksWant = new ArrayList<Book>();
 
     public Long getId() {
         return id;
@@ -27,5 +36,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Book> getBooksWant() {
+        return booksWant;
+    }
+
+    public void setBooksWant(List<Book> booksWant) {
+        this.booksWant = booksWant;
     }
 }

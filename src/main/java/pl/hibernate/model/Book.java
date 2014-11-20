@@ -1,8 +1,8 @@
 package pl.hibernate.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -11,5 +11,10 @@ public class Book {
     @GeneratedValue
     private Long id;
     private String title;
+    //Przypadek 1
+    @ManyToMany(mappedBy = "booksWant")
+    //Przypadek 2
+    //@ManyToMany(mappedBy = "booksWant", cascade = CascadeType.ALL)
+    private List<User> users = new ArrayList<User>();
 
 }

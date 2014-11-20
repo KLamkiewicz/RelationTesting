@@ -18,11 +18,18 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void delete(User user) {
-
+        this.session.getCurrentSession().delete(user);
     }
 
     @Override
     public void delete(Long id) {
+        User user = (User) this.session.getCurrentSession().get(User.class, id);
+        this.session.getCurrentSession().delete(user);
+    }
 
+    @Override
+    public User getUser(Long id) {
+        User user = (User) this.session.getCurrentSession().get(User.class, id);
+        return user;
     }
 }
